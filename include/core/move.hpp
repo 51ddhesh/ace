@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <core/types.hpp>
 #include <cstdint>
 #include <string>
@@ -89,6 +90,45 @@ class Move {
             s += promo_chars[promotion_type()];
         }
         return s;
+    }
+};
+
+struct ScoredMove {
+    Move move;
+    int32_t score;
+};
+
+class MoveList {
+  private:
+    std::array<ScoredMove, MAX_MOVES> moves_;
+    size_t size_;
+
+  public:
+    constexpr MoveList() noexcept : size_(0) {}
+
+    constexpr void push_back(Move m) noexcept {
+        assert(size_ < MAX_MOVES);
+        moves_[size_++].move = m;
+    }
+
+    [[nodiscard]] constexpr size_t size() const noexcept { return size_; }
+    [[nodiscard]] constexpr bool empty() const noexcept { return size_ == 0; }
+
+    constexpr ScoredMove* begin() noexcept { return moves_.data(); }
+    constexpr ScoredMove* end() noexcept { return moves_.data() + size_; }
+    constexpr const ScoredMove* begin() const noexcept {
+        return moves_.data();
+    }
+    constexpr const ScoredMove* end() const noexcept {
+        return moves_.data() + size_;
+    }
+
+    constexpr ScoredMove& operator[](size_t idx) noexcept {
+        return moves_[idx];
+    }
+
+    constexpr const ScoredMove& operator[](size_t idx) const noexcept {
+        return moves_[idx];
     }
 };
 
