@@ -17,7 +17,7 @@ set(ENGINE_SOURCES
 )
 
 add_executable(ace ${ENGINE_SOURCES})
-target_include_directories(ace PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_include_directories(ace PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 target_compile_options(ace PRIVATE
     -Wall -Wextra -Wpedantic -Werror
@@ -63,7 +63,7 @@ if(BUILD_CUDA_DATALOADER)
         set(CMAKE_CUDA_ARCHITECTURES 89)
 
         add_library(ace_cuda_loader SHARED train/dataloader/unpack_kernels.cu)
-        target_include_directories(ace_cuda_loader PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+        target_include_directories(ace_cuda_loader PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
         target_compile_options(ace_cuda_loader PRIVATE
             $<$<COMPILE_LANGUAGE:CUDA>:--use_fast_math -O3 -Xcompiler=-Wall,-Wextra,-fno-exceptions>
         )

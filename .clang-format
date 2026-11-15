@@ -8,5 +8,5 @@ ReferenceAlignment: Left
 AllowShortIfStatementsOnASingleLine: Always
 AllowShortLoopsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: Inline
-SortIncludes: false
+SortIncludes: true
 ...
